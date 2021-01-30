@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
-
-
+use Illuminate\Support\Facades\Validator;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +26,14 @@ Route::get('/', function(){
 });
 
 Route::post('upload', function(Request $request){
+
+    $validator = Validator::make($request->all(), [
+        'image' => 'mimes:jpg,jpeg,png|max:1024'
+    ]);
+
+    if($validator->fails()) {
+        return back()->withErrors($validator->errors());
+    }
 
 
     $extension = $request->file('image')->getClientOriginalExtension();

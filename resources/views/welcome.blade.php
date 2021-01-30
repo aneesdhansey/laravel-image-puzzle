@@ -80,6 +80,10 @@
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.2/dist/confetti.browser.min.js"></script>
         <script>
 
+            @if(!$errors->isEmpty())
+                alert('{{$errors->first()}}');
+            @endif
+
             const DragNDrop = (function(){
 
                 const winningCombination = '123456789';
